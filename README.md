@@ -8,16 +8,16 @@
   </thead>
   <tbody>
     <tr>
+      <td>3119560045</td>
+      <td>Phạm Đình Phương Nam</td>
+    </tr>
+    <tr>
       <td>3119410181</td>
       <td>Trần Văn Khang</td>
     </tr>
     <tr>
       <td>3119410183</td>
       <td>Phạm Tuấn Khanh</td>
-    </tr>
-    <tr>
-      <td>3119410183</td>
-      <td>Phạm Phương Nam</td>
     </tr>
     <tr>
       <td>3119410204</td>
