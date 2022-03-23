@@ -41,12 +41,35 @@ def constructPrintLIS(arr: list, n: int):
     # max will contain LIS
     printLIS(maxx)
  
+def lis(arr):
+    n = len(arr)
+ 
+    # Declare the list (array) for LIS and
+    # initialize LIS values for all indexes
+    lis = [1]*n
+ 
+    # Compute optimized LIS values in bottom up manner
+    for i in range(1, n):
+        for j in range(0, i):
+            if arr[i] > arr[j] and lis[i] < lis[j] + 1:
+                lis[i] = lis[j]+1
+ 
+    # Initialize maximum to 0 to get
+    # the maximum of all LIS
+    maximum = 0
+ 
+    # Pick maximum of all LIS values
+    for i in range(n):
+        maximum = max(maximum, lis[i])
+ 
+    return maximum
+ 
 # Driver Code
 if __name__ == "__main__":
  
     arr = [2, 8, 11, 3, 5, 9, 10, 4, 17, 6]
     n = len(arr)
- 
+    print ("Length of lis is", lis(arr))
     # construct and print LIS of arr
     constructPrintLIS(arr, n)
  
