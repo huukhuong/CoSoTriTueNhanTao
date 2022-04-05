@@ -4,7 +4,7 @@ def printLIS(arr: list):
         print(x, end=" ")
     print()
 def constructPrintLIS(arr: list, n: int):
-
+    
     l = [[] for i in range(n)]
 
     l[0].append(arr[0])
