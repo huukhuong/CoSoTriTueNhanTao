@@ -91,7 +91,7 @@ void setdata(int n)
     for (int i = 1; i <= n; i++) {
         for (int j = i; j <= n; j++) {
             Prime[i][j] = isPrime(i + j);
-            Prime[j][i] = Prime[i][j]; // sàng so nguyen to dua vao mang
+            Prime[j][i] = Prime[i][j]; // sï¿½ng so nguyen to dua vao mang
         }
         // cout<<endl;
     }
