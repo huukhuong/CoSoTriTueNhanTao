@@ -3,17 +3,20 @@
 #include <cstdlib>
 #include <algorithm>
 #include <cmath>
-#include <sstream>
 #include <string>
 #include <stdlib.h>
 #include <fstream>
+#include <sstream>
 
+#define MAX 100
 using namespace std;
 
-int n, x[100], dd[100];
-bool Prime[100][100];
-int res[100] = { 0, 0, 2, 2, 4, 96, 1024, 2880, 81024, 770144 }; // mang so cach tim duoc vong so nguyen to
-string s = ""; // ket qua se luu vao bien s va ghi bien s ra file
+int A[MAX][MAX];
+int C[MAX], B[MAX];
+int n;
+int d;      // số lượng chu trình
+int sodinh; // số đỉnh = 2n;
+string s;
 
 string numberToString(unsigned int n)
 {
@@ -21,101 +24,104 @@ string numberToString(unsigned int n)
     ss << n;
     return ss.str();
 }
-
-int stringToNumber(string s)
+void readFile() // hàm đọc file
 {
-    return atoi(s.c_str());
+    ifstream file;
+    file.open("CIRCLE.INP");
+    file >> n;
+    file.close();
 }
 
-int readFile()
-{
-    fstream f;
-    f.open("CIRCLE.INP", ios::in); // doc du lieu tu file CIRCLE.INP
-    string data;
-    getline(f, data);
-    n = stringToNumber(data); // lay du lieu tu file xong gan vao bien n
-    f.close();
-    return n;
-}
-
-void writeFile(string data)
+void writeFile()
 {
 
-    fstream f;
-    f.open("CIRCLE.OUT", ios::out); // ghi du lieu ra file
-    f << data;
-    f.close();
+    ofstream file("CIRCLE.OUT");
+    file << d;
+    file << '\n';
+    file << s;
+    file.close();
 }
 
-bool isPrime(int n)
-{ // ham kiem tra so nguyen to
-    if (n <= 1) {
-        return false;
-    }
-    for (int i = 2; (i * i) <= n; i++) {
-        if (n % i == 0) {
-            return false;
+void init(int n) // khởi tạo giá trị mặc định của chu trình
+{
+    for (int i = 1; i <= 2 * n; i++)
+    {
+        for (int j = 1; j <= 2 * n; j++)
+        {
+            A[i][j] = 0;
         }
     }
+}
+
+bool isPrime(int n) // Hàm kiểm tra các số nguyên tố.
+{
+    if (n <= 1)
+        return false;
+    for (int i = 2; i < n; i++)
+        if (n % i == 0)
+            return false;
+
     return true;
 }
 
-void dq(int t)
+void matran(int n) // khởi tạo ma trận kề
 {
-    if (t == n + 1) {
-        if (!Prime[x[1]][x[n]]) {
-            return;
+    for (int i = 1; i <= 2 * n; i++)
+    {
+        for (int j = 1; j <= 2 * n; j++)
+        {
+            int sum = i + j;
+            int diff = abs(i - j);
+            if (isPrime(sum))
+            {
+                A[i][j] = 1;
+            }
         }
-        for (int i = 1; i <= n; i++) {
-            cout << x[i] << " ";
-            string geek = numberToString(x[i]); // chuyen so thanh chu roi
-            s.append(geek); // gan vao bien "s" de luu vao file
-            s.append(" ");
-        }
-        s.append("\n");
-        cout << endl;
-        return;
     }
-    for (int i = 1; i <= n; i++)
-        if (dd[i] == 0 && Prime[x[t - 1]][i]) {
-            x[t] = i;
-            dd[i] = 1;
-            dq(t + 1);
-            dd[i] = 0;
-        }
-    //	cout<<"test"<<s;
 }
 
-void setdata(int n)
+void Result(void) // in chu trình
 {
-    for (int i = 1; i <= n; i++) {
-        for (int j = i; j <= n; j++) {
-            Prime[i][j] = isPrime(i + j);
-            Prime[j][i] = Prime[i][j]; // s�ng so nguyen to dua vao mang
-        }
-        // cout<<endl;
+    d++;
+    for (int i = sodinh; i > 0; i--)
+    {
+        cout << B[i] << " ";
+        string geek = numberToString(B[i]); // chuyen so thanh chu roi
+        s.append(geek);                     // gan vao bien "s" de luu vao file
+        s.append(" ");
     }
-    x[1] = 1;
-    dd[1] = 1;
-    //	 for (int i = 0; i < n; i++){
-    //	        for (int j = 0; j < n; j++) {
-    //	           	cout<<"yes["<<i<<"]["<<j<<"] = "<<yes[i][j]<<" ";
-    //	        }
-    //	        cout<<endl;
-    //	}
-    string geek = numberToString(res[n / 2]);
-    s.append(geek);
-    s.append("\n"); // luu so cach tim duoc vao chuoi
+    s.append("\n");
+    // tăng biến đếm các chu trình có thể tìm được
+    cout << endl;
 }
+
+void Hamilton(int *B, int *C, int i) // duyệt chu trình Hamilton với tham số đầu vào là Ma trận kề A
+{
+    int j, k;
+    for (j = 1; j <= sodinh; j++)
+    {
+        if (A[B[i - 1]][j] == 1 && C[j] == 0)
+        {
+            B[i] = j;
+            C[j] = 1;
+            if (i < sodinh)
+                Hamilton(B, C, i + 1);
+            else if (B[i] == B[0])
+                Result();
+            C[j] = 0;
+        }
+    }
+}
+
 int main()
 {
-    n = readFile(); // gan n = du lieu trong file CIRCLE.INP
-    n *= 2;
-    cout << res[n / 2] << endl;
-    setdata(n);
-    dq(2);
-    writeFile(s);
-    cout << "Da ghi du lieu vao file CIRCLE.OUT" << endl;
-    system("pause");
-    return 0;
+    B[0] = 1;
+    readFile();
+    int i = 1; // xuất phát từ đỉnh 1
+    d = 0;     // gán biến đếm số lượng chu trình = 0 ;
+    init(n);   // khởi tạo ma trận
+    matran(n); // tạo ma trận kề
+    sodinh = 2 * n;
+    Hamilton(B, C, i); // chuyển ma trận kề thành chu trình
+    writeFile();
 }

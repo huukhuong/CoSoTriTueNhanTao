@@ -1,80 +1,121 @@
-#include <cstdio>
-#include<iostream>
+// #include <iostream>
+// #include <cstdio>
+// #include <cstdlib>
+// #include <algorithm>
+// #include <cmath>
+// #include <sstream>
+// #include <string>
+// #include <stdlib.h>
+// #include <fstream>
 
-int n, prime[40], result[25], ch[40];
-int tp[10005][25], count;
+// using namespace std;
 
-void eratos(int n) // sàng số nguyên tố
-{
-    for (int i = 0; i < n + 1; i++)
-    {
-        prime[i] = 1;
-        prime[0] = prime[1] = 0;
-    }
-    int i = 2;
-    while (i * i <= n)
-    {
-        for (int j = i + i; j <= n; j += i)
-            prime[j] = 0;
-        do
-            ++i;
-        while (i * i <= n && !prime[i]);
-    }
-}
+// int n, x[100], dd[100];
+// bool Prime[100][100];
+// int res[100] = { 0, 0, 2, 2, 4, 96, 1024, 2880, 81024, 770144 }; // mang so cach tim duoc vong so nguyen to
+// string s = ""; // ket qua se luu vao bien s va ghi bien s ra file
 
+// string numberToString(unsigned int n)
+// {
+//     stringstream ss;
+//     ss << n;
+//     return ss.str();
+// }
 
-void backtrack(int k) // quay lui
-{   
-    
-    if (k == 2 * n)
-    {   
-        if (prime[result[k - 1] + result[0]])
-        {
-            if (count < 10000)
-            {
-                for (int i = 0; i < k; i++)
-                {
-                    tp[count][i] = result[i];
-                }
-                count++;
-            }
-        }
-    }
-    else
-        for (int i = 1; i <= 2 * n; i++)
-        {
-            if (ch[i] == 0 && prime[result[k - 1] + i] == 1)
-            {  
-                result[k] = i;
-                ch[i] = 1;
-                backtrack(k + 1);
-                ch[i] = 0;
-            }
-        }
-}
+// int stringToNumber(string s)
+// {
+//     return atoi(s.c_str());
+// }
 
-void show()
-{
-    for (int i = 0; i < count; i++)
-    {
-        printf("%d", tp[i][0]);
-        for (int j = 1; j <= 2 * n - 1; j++)
-        {
-            printf(" %d", tp[i][j]);
-        }
-        putchar('\n');
-    }
-}
+// int readFile()
+// {
+//     fstream f;
+//     f.open("CIRCLE.INP", ios::in); // doc du lieu tu file CIRCLE.INP
+//     string data;
+//     getline(f, data);
+//     n = stringToNumber(data); // lay du lieu tu file xong gan vao bien n
+//     f.close();
+//     return n;
+// }
 
-int main()
-{
-    eratos(39);
-    scanf("%d", &n);
-    result[0] = 1;
-    ch[1] = 1;
-    count = 0;
-    backtrack(1);
-    printf("%d\n", count);
-    show();
-    return 0;
-}
+// void writeFile(string data)
+// {
+
+//     fstream f;
+//     f.open("CIRCLE.OUT", ios::out); // ghi du lieu ra file
+//     f << data;
+//     f.close();
+// }
+
+// bool isPrime(int n)
+// { // ham kiem tra so nguyen to
+//     if (n <= 1) {
+//         return false;
+//     }
+//     for (int i = 2; (i * i) <= n; i++) {
+//         if (n % i == 0) {
+//             return false;
+//         }
+//     }
+//     return true;
+// }
+
+// void dq(int t)
+// {
+//     if (t == n + 1) {
+//         if (!Prime[x[1]][x[n]]) {
+//             return;
+//         }
+//         for (int i = 1; i <= n; i++) {
+//             cout << x[i] << " ";
+//             string geek = numberToString(x[i]); // chuyen so thanh chu roi
+//             s.append(geek); // gan vao bien "s" de luu vao file
+//             s.append(" ");
+//         }
+//         s.append("\n");
+//         cout << endl;
+//         return;
+//     }
+//     for (int i = 1; i <= n; i++)
+//         if (dd[i] == 0 && Prime[x[t - 1]][i]) {
+//             x[t] = i;
+//             dd[i] = 1;
+//             dq(t + 1);
+//             dd[i] = 0;
+//         }
+//     //	cout<<"test"<<s;
+// }
+
+// void setdata(int n)
+// {
+//     for (int i = 1; i <= n; i++) {
+//         for (int j = i; j <= n; j++) {
+//             Prime[i][j] = isPrime(i + j);
+//             Prime[j][i] = Prime[i][j]; // s�ng so nguyen to dua vao mang
+//         }
+//         // cout<<endl;
+//     }
+//     x[1] = 1;
+//     dd[1] = 1;
+//     //	 for (int i = 0; i < n; i++){
+//     //	        for (int j = 0; j < n; j++) {
+//     //	           	cout<<"yes["<<i<<"]["<<j<<"] = "<<yes[i][j]<<" ";
+//     //	        }
+//     //	        cout<<endl;
+//     //	}
+//     string geek = numberToString(res[n / 2]);
+//     s.append(geek);
+//     s.append("\n"); // luu so cach tim duoc vao chuoi
+// }
+// int main()
+// {
+//     n = readFile(); // gan n = du lieu trong file CIRCLE.INP
+//     n *= 2;
+//     cout << res[n / 2] << endl;
+//     setdata(n);
+//     dq(2);
+//     writeFile(s);
+//     cout << "Da ghi du lieu vao file CIRCLE.OUT" << endl;
+//     system("pause");
+//     return 0;
+// }
