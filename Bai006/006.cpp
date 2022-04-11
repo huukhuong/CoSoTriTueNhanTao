@@ -25,7 +25,7 @@ string numberToString(unsigned int n)
     return ss.str();
 }
 void readFile() // hàm đọc file
-{
+{   
     ifstream file;
     file.open("CIRCLE.INP");
     file >> n;
@@ -34,11 +34,11 @@ void readFile() // hàm đọc file
 
 void writeFile()
 {
-
+    // dữ liệu về các chu trình đã được gán vào biến s ở trong hàm Result();
     ofstream file("CIRCLE.OUT");
-    file << d;
+    file << d; // in số lượng chu trình tìm thấy
     file << '\n';
-    file << s;
+    file << s;  // in biến s
     file.close();
 }
 
@@ -57,7 +57,7 @@ bool isPrime(int n) // Hàm kiểm tra các số nguyên tố.
 {
     if (n <= 1)
         return false;
-    for (int i = 2; i < n; i++)
+    for (int i = 2; i <= sqrt(n); i++)
         if (n % i == 0)
             return false;
 
