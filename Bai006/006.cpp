@@ -115,7 +115,7 @@ void Hamilton(int *B, int *C, int i) // duyệt chu trình Hamilton với tham s
 
 int main()
 {
-    B[0] = 1;
+    B[0] = 1;  
     readFile();
     int i = 1; // xuất phát từ đỉnh 1
     d = 0;     // gán biến đếm số lượng chu trình = 0 ;
@@ -124,4 +124,6 @@ int main()
     sodinh = 2 * n;
     Hamilton(B, C, i); // chuyển ma trận kề thành chu trình
     writeFile();
+    system("pause");
+    return 0 ;
 }
