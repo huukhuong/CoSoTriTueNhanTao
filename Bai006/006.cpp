@@ -11,12 +11,12 @@
 #define MAX 100
 using namespace std;
 
-int A[MAX][MAX];
-int C[MAX], B[MAX];
-int n;
+int A[MAX][MAX]; // ma trận kề
+int C[MAX], B[MAX]; 
+int n;       // n đọc từ file , 1<n<10
 int d;      // số lượng chu trình
 int sodinh; // số đỉnh = 2n;
-string s;
+string s; // chuỗi s để lưu giá trị xuất file
 
 string numberToString(unsigned int n)
 {
@@ -71,7 +71,6 @@ void matran(int n) // khởi tạo ma trận kề
         for (int j = 1; j <= 2 * n; j++)
         {
             int sum = i + j;
-            int diff = abs(i - j);
             if (isPrime(sum))
             {
                 A[i][j] = 1;
