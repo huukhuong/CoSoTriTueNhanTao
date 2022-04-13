@@ -4,16 +4,14 @@ using namespace std;
  vector<string> v;
     void docFile(){
         ifstream ifs("NOTE.INP");
-    //Ki?m tra file dã m? thành công hay chua
+
         if(!ifs){
             cerr << "Error: file not opened." << endl;
             return ;
         }
         
-        //Khai báo bi?n ki?u string d? luu t?ng t? d?c du?c
         string str;
-        
-        //Ð?c và in l?n lu?t các t? trong file
+       
         ifs  >> str;
         while(ifs  >> str){ 
            // cout << str << endl;
@@ -74,16 +72,9 @@ using namespace std;
                 sit++;
             }
         }
-        ghiFile(ret.size() == degree.size() ? ret : "");
         return ret.size() == degree.size() ? ret : "";
     }
     
-    void print(std::vector<string> const &input)
-{
-    for (int i = 0; i < input.size(); i++) {
-        std::cout << input.at(i) << ' ';
-    }
-}
 int main()
 {
     
