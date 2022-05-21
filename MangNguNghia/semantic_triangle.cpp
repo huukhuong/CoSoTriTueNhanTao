@@ -160,7 +160,7 @@ int main()
     S       0   0   0   -1  -1
     hC      0   0   0   0   -1
     */
-    //kiet lac
+
     cout<<"Nhap gia tri ma tran \n";
     nhapmt(x,n,m);
     cout<<"Ma tran ban dau la \n";
