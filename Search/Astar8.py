@@ -44,7 +44,6 @@ class State:
             return False
         return self.Key() == other.Key()
 
-
 class Operator:
     def __init__(self, i):
         self.i = i
@@ -114,7 +113,7 @@ class Operator:
         sn.data[x * sz + y] = s.data[x_new * sz + y_new]
         sn.data[x_new * sz + y_new] = 0
         return sn
-
+# di chuyển lên xuống trái phải
     def Move(self, s):
         global noofMoves 
 
