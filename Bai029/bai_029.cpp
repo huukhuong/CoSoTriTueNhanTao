@@ -8,7 +8,7 @@
 // Dòng đầu tiên ghi hai số nguyên dương m, n là kích thước của lưới nền (m hàng, n cột) m dòng tiếp theo, dòng thứ i ghi n số nguyên không âm, số nguyên thứ j biểu thị chiều cao của cột dựng tại ô (i, j) của lưới. Các số cách nhau ít nhất một dấu cách. 
 
 // Kết quả ra đặt trong file văn bản PAINT.OUT, ghi số diện tích cần sơn. 
-
+  
 
 #include <iostream>
 // đọc file và gán vào mảng
