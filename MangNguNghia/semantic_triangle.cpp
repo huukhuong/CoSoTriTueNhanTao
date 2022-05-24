@@ -78,31 +78,6 @@ void kh_1(int arr[][20],int i,int m)  // kich hoat dong ma cac bien da co gia tr
     }
 }
 
-int dem_1(int arr[][20],int n,int j) //dem gia tri = 1 trong cot
-{
-    int dem=0;
-    for(int i=0;i<n;i++)
-    {
-        if (arr[i][j]==1)
-        {
-            dem=dem++;
-        }
-    }
-    return dem;
-}
-int dem_k0(int arr[][20],int n,int j) //dem gia tri khac 0 trong cot
-{
-    int dem=0;
-    for(int i=0;i<n;i++)
-    {
-        if (arr[i][j]!=0)
-        {
-            dem=dem++;
-        }
-    }
-    return dem;
-}
-
 void MangNN(int arr[][20],int n,int m)
 {
     kh_1(arr,0,m);  //dinh alpha, beta, a duoc kich hoat
