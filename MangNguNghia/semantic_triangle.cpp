@@ -78,42 +78,6 @@ void kh_1(int arr[][20],int i,int m)  // kich hoat dong ma cac bien da co gia tr
     }
 }
 
-int dem_1(int arr[][20],int n,int j) //dem gia tri = 1 trong cot
-{
-    int dem=0;
-    for(int i=0;i<n;i++)
-    {
-        if (arr[i][j]==1)
-        {
-            dem=dem++;
-        }
-    }
-    return dem;
-}
-int dem_k0(int arr[][20],int n,int j) //dem gia tri khac 0 trong cot
-{
-    int dem=0;
-    for(int i=0;i<n;i++)
-    {
-        if (arr[i][j]!=0)
-        {
-            dem=dem++;
-        }
-    }
-    return dem;
-}
-void kh_2(int arr[][20],int i,int m) //kich hoat cac phan tu dong i
-{
-    for (int j=0;j<m;j++)
-    {
-        if(arr[i][j]==-1)
-        {
-            arr[i][j]=1;
-        }
-    }
-}
-
-
 void MangNN(int arr[][20],int n,int m)
 {
     kh_1(arr,0,m);  //dinh alpha, beta, a duoc kich hoat
@@ -127,7 +91,7 @@ void MangNN(int arr[][20],int n,int m)
         {
             if(arr[i][j]==-1)
             {
-                kh_2(arr,i,m);
+                kh_1(arr,i,m);
                 break;
             }
         }
@@ -171,22 +135,9 @@ float giatri(float alpha,float beta,float a)
 void ketqua(int arr[][20],int n,int j) //dua ra ket qua
 {
     float alpha,beta,a;
-    //gia tri can tinh nam trong cong thuc thu j
-    //nhap gia tri j
-    // cout<<"\nNhap so cong thuc co chua gia tri can tinh: ";
-    // cin>>j;
+    cout<<"\nTinh duoc gia tri theo cong thuc Heron:"<<endl;
+    cout<<"Dien tich S = "<<giatri(alpha,beta,a);
     
-    if(dem_1(arr,n,j)==dem_k0(arr,n,j))
-    {
-        cout<<"\nTinh duoc gia tri theo cong thuc"<<endl;
-        cout<<"Dien tich S = "<<giatri(alpha,beta,a);
-    }
-    else
-    {
-        cout<<"\nKhong tinh duoc gia tri theo cac cong thuc"<<endl;
-        cout<<"\nVi nhung bien lien quan khong the tinh duoc theo cong thuc";
-
-    }
 }
 
 int main()
