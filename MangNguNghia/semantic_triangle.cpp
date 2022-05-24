@@ -6,110 +6,154 @@
 #include <fstream>
 using namespace std;
 
-int n,m,j;
-int x[20][20];
-
-void nhapmt(int x[][20],int n,int m) //Nhap ma tran
+void nhapmt(int arr[][20],int n,int m) //Nhap ma tran
 {
-    for(int i=1;i<=n;i++)
+    ifstream inputfile("input.txt");
+    
+    if (!inputfile.is_open()) 
+    cout<<"Error opening file" ;
+
+    for (int r = 0; r < n; r++) 
     {
-        for(int j=1;j<=m;j++)
+        for (int c = 0; c < m; c++) 
         {
-            cout<<"x["<<i<<","<<j<<"]=";
-            cin>>x[i][j];
+          inputfile >> arr[r][c];  
         }
     }
 }
 
-void inmt(int x[][20],int n,int m) // in ma tran
+void inmt(int arr[][20],int n,int m) // in ma tran
 {
-    for(int i=1;i<=n;i++)
+  
+   for (int r = 0; r < n; r++)
     {
-        for(int j=1;j<=m;j++)
+        switch (r)
         {
-            cout<<setw(4)<<x[i][j];
-            
+        case 0:
+            cout<<"alpha"<<"\t";
+            break;
+        case 1:
+            cout<<"beta "<<"\t";
+            break;
+        case 2:
+            cout<<"gamma"<<"\t";
+            break;    
+        case 3:
+            cout<<"a"<<"\t";
+            break;
+        case 4:
+            cout<<"b"<<"\t";
+            break;
+        case 5:
+            cout<<"c"<<"\t";
+            break;
+        case 6:
+            cout<<"S"<<"\t";
+            break;
+        case 7:
+            cout<<"hC"<<"\t";
+            break;
+
+        default:
+            break;
+        }
+        for (int c = 0; c < m; c++)
+        {
+            cout << arr[r][c] << "\t";
         }
         cout<<endl;
     }
+    cout<<endl;
 } 
 
-void kh_1(int x[][20],int i,int m)  // kich hoat dong ma cac bien da co gia tri ban dau
+void kh_1(int arr[][20],int i,int m)  // kich hoat dong ma cac bien da co gia tri ban dau
 
 {
-    for(int j=1;j<=m;j++)
+    for(int j=0;j<m;j++)
     {
-        if (x[i][j]==-1)
+        if (arr[i][j]==-1)
         {
-            x[i][j]=1;
+            arr[i][j]=1;
         }
     }
 }
 
-int dem_1(int x[][20],int n,int j) //dem gia tri = 1 trong cot
+int dem_1(int arr[][20],int n,int j) //dem gia tri = 1 trong cot
 {
     int dem=0;
-    for(int i=1;i<=n;i++)
+    for(int i=0;i<n;i++)
     {
-        if (x[i][j]==1)
+        if (arr[i][j]==1)
         {
             dem=dem++;
         }
     }
     return dem;
 }
-int dem_k0(int x[][20],int n,int j) //dem gia tri khac 0 trong cot
+int dem_k0(int arr[][20],int n,int j) //dem gia tri khac 0 trong cot
 {
     int dem=0;
-    for(int i=1;i<=n;i++)
+    for(int i=0;i<n;i++)
     {
-        if (x[i][j]!=0)
+        if (arr[i][j]!=0)
         {
             dem=dem++;
         }
     }
     return dem;
 }
-void kh_2(int x[][20],int i,int m) //kich hoat cac phan tu dong i
+void kh_2(int arr[][20],int i,int m) //kich hoat cac phan tu dong i
 {
-    for (int j=1;j<=m;j++)
+    for (int j=0;j<m;j++)
     {
-        if(x[i][j]==-1)
+        if(arr[i][j]==-1)
         {
-            x[i][j]=1;
+            arr[i][j]=1;
         }
     }
 }
-int dong_kh(int x[][20],int n,int j) //tim dong duoc kich hoat
+
+
+void MangNN(int arr[][20],int n,int m)
 {
-    int vt;
-    for(int i=1;i<=n;i++)
+    kh_1(arr,0,m);  //dinh alpha, beta, a duoc kich hoat
+    kh_1(arr,1,m);
+    kh_1(arr,3,m);
+    cout<<"Ma tran sau khi kich hoat duoc alpha, beta, a:"<<endl;
+    inmt(arr,n,m);
+    for(int i=0;i<n;i++)
     {
-        if(x[i][j]==-1)
+        for(int j=0;j<m;j++)
         {
-            vt=i;
-            return vt;
+            if(arr[i][j]==-1)
+            {
+                kh_2(arr,i,m);
+                break;
+            }
+        }
+        switch (i)
+        {
+        case 3:
+            cout<<"Ma tran sau khi kich hoat duoc gamma:"<<endl;
+            inmt(arr,n,m);
+            break;
+        case 5:
+            cout<<"Ma tran sau khi kich hoat duoc b:"<<endl;
+            inmt(arr,n,m);
+            break;
+        case 6:
+            cout<<"Ma tran sau khi kich hoat duoc c:"<<endl;
+            inmt(arr,n,m);
+            break;
+        case 7:
+            cout<<"Ma tran sau khi kich hoat duoc S:"<<endl;
+            inmt(arr,n,m);
+            break;
+        default:
+            break;
         }
     }
-    return 0;
-}
-
-// neu cot j ma tong tai dem_1 +1 == dem_k0
-// kich hoat dong ma co gia tri bang -1 trong cot j
-
-void MangNN(int x[][20],int n,int m)
-{
-    kh_1(x,1,m);  //dinh alpha, beta, a duoc kich hoat
-    kh_1(x,2,m);
-    kh_1(x,4,m);
-
-    for(int j=1;j<=m;j++)
-    {
-        if(dem_1(x,n,j)+1 ==dem_k0(x,n,j))
-        {
-            kh_2(x,dong_kh(x,n,j),m);
-        }
-    }
+    
 }
 float giatri(float alpha,float beta,float a)
 {
@@ -121,21 +165,21 @@ float giatri(float alpha,float beta,float a)
     float p=(a+b+c)/2;
     s=sqrt(p*(p-a)*(p-b)*(p-c));
     hc=(s/c)*2;
-    return hc;
+    return s;
 }
 
-void ketqua(int x[][20],int n,int j) //dua ra ket qua
+void ketqua(int arr[][20],int n,int j) //dua ra ket qua
 {
     float alpha,beta,a;
     //gia tri can tinh nam trong cong thuc thu j
     //nhap gia tri j
-    cout<<"\nNhap so cong thuc co chua gia tri can tinh: ";
-    cin>>j;
+    // cout<<"\nNhap so cong thuc co chua gia tri can tinh: ";
+    // cin>>j;
     
-    if(dem_1(x,n,j)==dem_k0(x,n,j))
+    if(dem_1(arr,n,j)==dem_k0(arr,n,j))
     {
         cout<<"\nTinh duoc gia tri theo cong thuc"<<endl;
-        cout<<"Chieu cao hc = "<<giatri(alpha,beta,a);
+        cout<<"Dien tich S = "<<giatri(alpha,beta,a);
     }
     else
     {
@@ -147,7 +191,7 @@ void ketqua(int x[][20],int n,int j) //dua ra ket qua
 
 int main()
 {
-    int n=8,m=5,a[20][20],j;
+    int n=8,m=5,arr[20][20],j=1;
     //float alpha=1.5708,beta=0.6446,a=5;
     /*  Ma tran ban dau (alpha,beta,a kich hoat truoc)
             (1) (2) (3) (4) (5)
@@ -161,13 +205,11 @@ int main()
     hC      0   0   0   0   -1
     */
 
-    cout<<"Nhap gia tri ma tran \n";
-    nhapmt(x,n,m);
+    nhapmt(arr,n,m);
     cout<<"Ma tran ban dau la \n";
-    inmt(x,n,m);
-    MangNN(x,n,m);
-    cout<<"Ma tran ket qua la\n";
-    ketqua(x,n,j);
+    inmt(arr,n,m);
+    MangNN(arr,n,m);
+    ketqua(arr,n,j);
     getch();
 }
 
