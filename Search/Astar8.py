@@ -81,9 +81,10 @@ class Operator:
             return None
         return self.swap(s, x, y, self.i)
 
+    # Kiểm tra trạng thái s.data == null
     def checkStateNull(self, s):
         return s.data == None
-
+    # Tìm vị trí x,y của hàng và cột xuất hiện số 0
     def findPos(self, s):
         sz = 3
         for i in range(sz):
@@ -91,7 +92,7 @@ class Operator:
                 if s.data[i * sz + j] == 0:
                     return i, j
         return None
-
+   # Hoán đổi vị trí x,y theo hàng cột mong muốn
     def swap(self, s, x, y, i):
         sz = 3
         sn = s.clone()
@@ -144,7 +145,7 @@ def Equal(O, G):
         return False
     return O.Key() == G.Key()
 
-
+# vẽ đường đi
 def Path(O):
     if O.par != None:
         Path(O.par)
@@ -158,7 +159,7 @@ def Path(O):
             print("RIGHT")
     O.Print()
 
-
+#kiểm tra sự sai khác của vị trí hiện tại S, so với vị trí đích G
 def Hx(S, G):
     sz = 3
     res = 0
@@ -171,6 +172,7 @@ def Hx(S, G):
 noofMoves = 0 
 
 def RUN():
+    #tạo hàng đợi
     Open = PriorityQueue()
     Closed = PriorityQueue()
     S.g = 0
@@ -187,6 +189,7 @@ def RUN():
             print("Tim thay")
             Path(O)
             return
+        #sinh ra các trạng thái con
         for i in range(4):
             op = Operator(i)
             child = op.Move(O)
