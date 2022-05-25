@@ -5,6 +5,22 @@
 #    E       F        G
 #   ↙  ↘      ↘
 # H       I       J
+
+#   Hàng đợi   vs            Đỉnh u              Hàng đợi for               Các đỉnh v kề u           Hàng đợi sau khi  queue
+#                    (lấy từ hàng đợi)       (sau khi lấy u ra)            mà chưa xét                đẩy v vào
+#   A                        A                  0                           B,C,D                       B,C,D
+#   B,C,D                    B                  C,D                         E,F                         C,D,E,F
+#   C,D,E,F                  C                  D,E,F                       F,G                         D,E,F,G
+#   D,E,F,G                  D                  E,F,G                       0                           E,F,G
+#   E,F,G                    E                  F,G                         H,I                         F,G,H,I
+#   F,G,H,I                  F                  G,H,I                       J                           G,H,I,J
+#   G,H,I,J                  G                  H,I,J                       0                           H,I,J
+#   H,I,J                    H                  I,J                         0                           I,J    
+#   I,J                      I                  J                           0                           J
+#   J                        J                  0                           0                           0
+
+
+                                         
 import collections
 graph = {
     'A': ['B', 'C', 'D'],
@@ -23,24 +39,24 @@ graph = {
 
 def bfs(graph, root, end):
 
-    visited, queue = set(), collections.deque([root])
+    visited, queue = set(), collections.deque([root]) #tao 2 hàng đợi;
     visited.add(root)
 
     while queue:
         
-        # Xếp hàng một đỉnh từ hàng đợi
-        vertex = queue.popleft()
+      
+        vertex = queue.popleft()     #Lấy phần tử đầu tiên trong hàng đợi
          # Nếu nó là đỉnh cần tìm thì kết thúc chương trình
         if vertex == end:
             exit(0)
         print(str(vertex) + " ", end="")
        
       
-        # Nếu không được truy cập, đánh dấu nó lại và xếp nó vào danh sách
+      # Lấy tất cả các đỉnh liền kề của đỉnh vertex trong đồ thị. 
 
         for neighbour in graph[vertex]:
-            if neighbour not in visited:
-                visited.add(neighbour)
+            if neighbour not in visited:        #Nếu một các đỉnh liền kề của vertex đang xét chưa được truy cập, 
+                visited.add(neighbour)          #đánh dấu nó đã được truy cập và xếp hàng
                 queue.append(neighbour)
 
 
