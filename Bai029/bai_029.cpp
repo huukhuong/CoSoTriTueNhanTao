@@ -35,7 +35,8 @@ void paint(int m, int n, int arr[1000][1000])
     for (int i = 1; i < m + 1; i++)
     {
         for (int j = 1; j < n + 1; j++)
-        { // tìm số mặt bên trên
+        {
+            // tìm số mặt bên trên
             if (arr[i][j] > arr[i - 1][j])
                 s += (arr[i][j] - arr[i - 1][j]);
             // tìm số mặt bên dưới
